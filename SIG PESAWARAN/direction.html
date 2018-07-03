@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+
+    <style>
+      #map {
+        height: 80%;
+        width:70%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        right: 50%;
+        z-index: 5;
+        background-color: white;
+        padding: 5px;
+        border: 1px solid #7CFC00;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 10px;
+        padding-left: 10px;
+      }
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      }
+      #right-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
+      }
+      #map {
+        margin-right: 400px;
+      }
+      #floating-panel {
+        background: white;
+        padding: 5px;
+        font-size: 14px;
+        font-family: Arial;
+        border: 1px solid #7CFC00;
+        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+        display: none;
+      }
+      @media print {
+        #map {
+          height: 500px;
+          margin: 0;
+        }
+        #right-panel {
+          float: none;
+          width: auto;
+        }
+      }
+      #floating-panell {
+        position:left;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #7CFC00;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      .footer {
+                width:auto;
+                background-color:#7CFC00;
+                color:white;
+                padding:20px;
+      }
+    </style>
+  </head>
+    
+    <center>
+      <div class="header"> <img src= pertanian.jpg height= "100" width= "100"> </div>
+      <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+      <h2>Rute Perjalanan</h2>
+          
+  </center>
+  
+  <nav id="menu">
+    <ul>
+         
+      <li><a href="imageoverlay.html">Beranda</a></li>
+      <li><a href="#">maps</a>
+      <ul>
+             <li><a href="json.html">Geojson</a></li>
+             <li><a href="polygon_bener.html">Polygon</a></li>
+             <li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+     
+             <li><a href="direction.html">Direction</a></li>
+             <li><a href="elevation.html">Elevation</a></li>
+             <li><a href="#">Kecamatan</a>
+              <ul>
+                        
+                         <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+                         <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+                         <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+                         <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+                         <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+                         <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+                         <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+                         <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+                 </ul>
+         </li>
+         <li><a href="#">HasilPertanian</a>
+            <ul>
+                   
+                    <li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+                    <li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+                    <li> <a href="HasPer PADI.html">Padi </a></li>
+                    <li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+                    
+            </ul>
+    </li>
+ </ul>
+</nav>
+  <body>
+    <div id="floating-panel">
+      <strong>Start:</strong>
+      <select id="start">
+        <option value="Unnamed Road, Penyandingan, Punduh Pidada, Pesawaran Regency">Desa Penyandingan</option>
+        <option value="Jalan Dirt Road, Umbul Limus, Kabupaten Pesawaran, Lampung">Desa Umbul Limus</option>
+        <option value="Jl. Dirt Road, Kunyaian, Kabupaten Pesawaran, Lampung">Desa Kunyaian</option>
+        <option value="Jl. Dirt Road, Kekatang, Punduh Pidada, Kabupaten Pesawaran, Lampung">Desa Kekatang</option>
+        <option value="Jl. Pematang Awi, Suka Jaya Punduh, Kabupaten Pesawaran, Lampung">Desa Suka Jaya Punduh</option>
+        <option value="Jl. Pematang Awi, Tajur, Kabupaten Pesawaran, Lampung">Desa Tajur</option>
+        <option value="Jl. Pematang Awi, Gayau, Kabupaten Pesawaran, Lampung">Desa Gayau</option>
+        <option value="Jalan Kroya Baru, Banjaran, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Banjaran</option>
+        <option value="Hanau Berak, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Hanau Berak</option>
+        <option value="Jalan Padang Cermin - Gedong Tataan, Way Urang, Kabupaten Pesawaran, Lampung">Desa Padang Cermin</option>
+        <option value="Gebang, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Gebang</option>
+        <option value="Hurun, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Hurun</option>
+        <option value="Sukajaya Lempasing, Kabupaten Pesawaran, Lampung">Desa Sukajaya</option>
+        <option value="Jl. Raya Way Ratay, Hanura, Kabupaten Pesawaran, Lampung">Desa Hanura</option>
+        <option value="Harapan Jaya, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Harapan Jaya</option>
+        <option value="Unnamed Road, Gunung Rejo, Padang Cermin, Pesawaran Regency, Lampung 35451">Desa Gunung Rejo</option>
+        <option value="Sumber Jaya, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Sumber Jaya</option>
+        <option value="Wates Way Ratai, Kabupaten Pesawaran, Lampung">Desa Wates Way Ratai</option>
+        <option value="Pesawaran Indah, Kabupaten Pesawaran, Lampung">Desa Pesawaran Indah</option>
+        <option value="Sinar Harapan, Kabupaten Pesawaran, Lampung">Desa Sinar Harapan</option>
+        <option value="Waykepayang, Kabupaten Pesawaran, Lampung">Desa Way Kepayang</option>
+        <option value="Sukamaju, Kabupaten Pesawaran, Lampung">Desa Sukamaju</option>
+        <option value="Jalan Raya Mada Jaya, Tanjung Rejo, Kabupaten Pesawaran, Lampung">Desa Tanjung Rejo</option>
+        <option value="Margodadi, Kabupaten Pesawaran, Lampung">Desa Margodadi</option>
+        <option value="Cimanuk, Kabupaten Pesawaran, Lampung">Desa Cimanuk</option>
+        <option value="Gunung Rejo, Kabupaten Pesawaran, Lampung">Desa Gunung Rejo</option>
+        <option value="Paguyuban, Way Lima, Kabupaten Pesawaran, Lampung">Desa Paguyuban</option>
+        <option value="Sidodadi, Way Lima, Kabupaten Pesawaran, Lampung">Desa Sidodadi</option>
+        <option value="Sukadadi, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Sukadadi</option>
+        <option value="Karang Anyar, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Karang Anyar</option>
+        <option value="taman sari, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Taman Sari</option>
+        <option value="Waylayap, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Way Layap</option>
+        <option value="Bogorejo, Kabupaten Pesawaran, Lampung">Desa Bogorejo</option>
+        <option value="Jalan Raya Gadingrejo, Kutoarjo, Kabupaten Pesawaran, Lampung">Desa Kutoarjo</option>
+        <option value="Jalan Raya Negeri Sakti, Negeri Sakti, Kabupaten Pesawaran, Lampung">Desa Negeri Sakti</option>
+        <option value="Cipadang, Kabupaten Pesawaran, Lampung">Desa Cipadang</option>
+        <option value="Sukabanjar, Kabupaten Pesawaran, Lampung">Desa Suka banjar</option>
+        <option value="Sungai Langka, Kabupaten Pesawaran, Lampung">Desa Sungai Langka</option>
+        <option value="Jalan Trimulyo, Gedung Gumanti, Kabupaten Pesawaran, Lampung">Desa Trimulyo</option>
+        <option value="Margo Mulyo, Kabupaten Pesawaran, Lampung">Desa Margo Mulyo</option>
+        <option value="Margo Rejo, Kabupaten Pesawaran, Lampung">Desa Margo Rejo</option>
+        <option value="Sidorejo, Bangunrejo, Kabupaten Lampung Tengah, Lampung">Desa Sidorejo</option>
+        <option value="Panca Bakti, Kabupaten Pesawaran, Lampung">Desa Panca Bakti</option>
+        <option value="Gn. Sugih Baru, Tegineneng, Kabupaten Pesawaran, Lampung">Desa Gunung Sugih Baru</option>
+        <option value="Sinar Jati, Kabupaten Pesawaran, Lampung">Desa Sinarjati</option>
+        <option value="Gerning, Kabupaten Pesawaran, Lampung">Desa Gerning</option>
+        <option value="Rejoagung, Kabupaten Pesawaran, Lampung">Desa Rejoagung</option>
+        <option value="Jalan Raya Roworejo, Roworejo, Kabupaten Pesawaran, Lampung">Desa Roworejo</option>
+        <option value="Bangun Sari, Kabupaten Pesawaran, Lampung">Desa Bangun Sari</option>
+        <option value="Purworejo, Kabupaten Pesawaran, Lampung">Desa Purworejo</option>
+        <option value="Jalan Raya Karangrejo, Kabupaten Pesawaran, Lampung">Desa Karangrejo</option>
+        <option value="Hutan, Kabupaten Pesawaran, Lampung">Desa Hutan</option>
+        <option value="Poncokresno, Kabupaten Pesawaran, Lampung">Desa Poncokresno</option>
+        <option value="Sinarbandung, Kabupaten Pesawaran, Lampung">Desa Sinarbandung</option>
+        <option value="Halangan Ratu, Kabupaten Pesawaran, Lampung">Desa Halangan Ratu</option>
+        <option value="Tri Rahayu, Kabupaten Pesawaran, Lampung">Desa Tri Rahayu</option>
+        <option value="keagungan ratu kabupaten pesawaran">Desa Kagungan Ratu</option>
+        <option value="Pejambon, Kabupaten Pesawaran, Lampung">Desa Pejambon</option>
+        
+      </select>
+      <br>
+      <strong>End:</strong>
+      <select id="end">
+        <option value="Unnamed Road, Penyandingan, Punduh Pidada, Pesawaran Regency">Desa Penyandingan</option>
+        <option value="Jalan Dirt Road, Umbul Limus, Kabupaten Pesawaran, Lampung">Desa Umbul Limus</option>
+        <option value="Jl. Dirt Road, Kunyaian, Kabupaten Pesawaran, Lampung">Desa Kunyaian</option>
+        <option value="Jl. Dirt Road, Kekatang, Punduh Pidada, Kabupaten Pesawaran, Lampung">Desa Kekatang</option>
+        <option value="Jl. Pematang Awi, Suka Jaya Punduh, Kabupaten Pesawaran, Lampung">Desa Suka Jaya Punduh</option>
+        <option value="Jl. Pematang Awi, Tajur, Kabupaten Pesawaran, Lampung">Desa Tajur</option>
+        <option value="Jl. Pematang Awi, Gayau, Kabupaten Pesawaran, Lampung">Desa Gayau</option>
+        <option value="Jalan Kroya Baru, Banjaran, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Banjaran</option>
+        <option value="Hanau Berak, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Hanau Berak</option>
+        <option value="Jalan Padang Cermin - Gedong Tataan, Way Urang, Kabupaten Pesawaran, Lampung">Desa Padang Cermin</option>
+        <option value="Gebang, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Gebang</option>
+        <option value="Hurun, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Hurun</option>
+        <option value="Sukajaya Lempasing, Kabupaten Pesawaran, Lampung">Desa Sukajaya</option>
+        <option value="Jl. Raya Way Ratay, Hanura, Kabupaten Pesawaran, Lampung">Desa Hanura</option>
+        <option value="Harapan Jaya, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Harapan Jaya</option>
+        <option value="Unnamed Road, Gunung Rejo, Padang Cermin, Pesawaran Regency, Lampung 35451">Desa Gunung Rejo</option>
+        <option value="Sumber Jaya, Padang Cermin, Kabupaten Pesawaran, Lampung">Desa Sumber Jaya</option>
+        <option value="Wates Way Ratai, Kabupaten Pesawaran, Lampung">Desa Wates Way Ratai</option>
+        <option value="Pesawaran Indah, Kabupaten Pesawaran, Lampung">Desa Pesawaran Indah</option>
+        <option value="Sinar Harapan, Kabupaten Pesawaran, Lampung">Desa Sinar Harapan</option>
+        <option value="Waykepayang, Kabupaten Pesawaran, Lampung">Desa Way Kepayang</option>
+        <option value="Sukamaju, Kabupaten Pesawaran, Lampung">Desa Sukamaju</option>
+        <option value="Jalan Raya Mada Jaya, Tanjung Rejo, Kabupaten Pesawaran, Lampung">Desa Tanjung Rejo</option>
+        <option value="Margodadi, Kabupaten Pesawaran, Lampung">Desa Margodadi</option>
+        <option value="Cimanuk, Kabupaten Pesawaran, Lampung">Desa Cimanuk</option>
+        <option value="Gunung Rejo, Kabupaten Pesawaran, Lampung">Desa Gunung Rejo</option>
+        <option value="Paguyuban, Way Lima, Kabupaten Pesawaran, Lampung">Desa Paguyuban</option>
+        <option value="Sidodadi, Way Lima, Kabupaten Pesawaran, Lampung">Desa Sidodadi</option>
+        <option value="Sukadadi, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Sukadadi</option>
+        <option value="Karang Anyar, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Karang Anyar</option>
+        <option value="taman sari, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Taman Sari</option>
+        <option value="Waylayap, Gedung Tataan, Kabupaten Pesawaran, Lampung">Desa Way Layap</option>
+        <option value="Bogorejo, Kabupaten Pesawaran, Lampung">Desa Bogorejo</option>
+        <option value="Jalan Raya Gadingrejo, Kutoarjo, Kabupaten Pesawaran, Lampung">Desa Kutoarjo</option>
+        <option value="Jalan Raya Negeri Sakti, Negeri Sakti, Kabupaten Pesawaran, Lampung">Desa Negeri Sakti</option>
+        <option value="Cipadang, Kabupaten Pesawaran, Lampung">Desa Cipadang</option>
+        <option value="Sukabanjar, Kabupaten Pesawaran, Lampung">Desa Suka banjar</option>
+        <option value="Sungai Langka, Kabupaten Pesawaran, Lampung">Desa Sungai Langka</option>
+        <option value="Jalan Trimulyo, Gedung Gumanti, Kabupaten Pesawaran, Lampung">Desa Trimulyo</option>
+        <option value="Margo Mulyo, Kabupaten Pesawaran, Lampung">Desa Margo Mulyo</option>
+        <option value="Margo Rejo, Kabupaten Pesawaran, Lampung">Desa Margo Rejo</option>
+        <option value="Sidorejo, Bangunrejo, Kabupaten Lampung Tengah, Lampung">Desa Sidorejo</option>
+        <option value="Panca Bakti, Kabupaten Pesawaran, Lampung">Desa Panca Bakti</option>
+        <option value="Gn. Sugih Baru, Tegineneng, Kabupaten Pesawaran, Lampung">Desa Gunung Sugih Baru</option>
+        <option value="Sinar Jati, Kabupaten Pesawaran, Lampung">Desa Sinarjati</option>
+        <option value="Gerning, Kabupaten Pesawaran, Lampung">Desa Gerning</option>
+        <option value="Rejoagung, Kabupaten Pesawaran, Lampung">Desa Rejoagung</option>
+        <option value="Jalan Raya Roworejo, Roworejo, Kabupaten Pesawaran, Lampung">Desa Roworejo</option>
+        <option value="Bangun Sari, Kabupaten Pesawaran, Lampung">Desa Bangun Sari</option>
+        <option value="Purworejo, Kabupaten Pesawaran, Lampung">Desa Purworejo</option>
+        <option value="Jalan Raya Karangrejo, Kabupaten Pesawaran, Lampung">Desa Karangrejo</option>
+        <option value="Hutan, Kabupaten Pesawaran, Lampung">Desa Hutan</option>
+        <option value="Poncokresno, Kabupaten Pesawaran, Lampung">Desa Poncokresno</option>
+        <option value="Sinarbandung, Kabupaten Pesawaran, Lampung">Desa Sinarbandung</option>
+        <option value="Halangan Ratu, Kabupaten Pesawaran, Lampung">Desa Halangan Ratu</option>
+        <option value="Tri Rahayu, Kabupaten Pesawaran, Lampung">Desa Tri Rahayu</option>
+        <option value="keagungan ratu kabupaten pesawaran">Desa Kagungan Ratu</option>
+        <option value="Pejambon, Kabupaten Pesawaran, Lampung">Desa Pejambon</option>
+        </select>
+    </div>
+    <div id="floating-panell">
+            <b><font  color= "white">Mode Perjalanan</b></font>
+            <select id="mode">
+              <option value="DRIVING">Naik Mobil</option>
+              <option value="WALKING">Jalan Kaki</option>
+            </select>
+            </div>
+    <div id="right-panel"></div>
+    <div id="map"></div>
+    <div class="footer"> <center>Copyright &copy; 2018. All rights reserved. Designed and developed by Designed by Adelliani, Anna Ainia, Eggi Amandara Sari</center></div>
+    <script>
+      function initMap() {
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat:-5.375130, lng:105.253640}
+        });
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('right-panel'));
+
+        
+
+        var control = document.getElementById('floating-panel');
+        control.style.display = 'block';
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        };
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+        document.getElementById('mode').addEventListener('change', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('change', onChangeHandler);
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var start = document.getElementById('start').value;
+        var end = document.getElementById('end').value;
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: start,
+          destination: end,
+          travelMode: google.maps.TravelMode[selectedMode]
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAICvEJEVcEqp6JxtFoP8YsvaCZ5lRjl-s&callback=initMap&language=in&region=ID"></script>
+  </body>
+  <body bgcolor=#7CFC00>
+    <div id="map"></div>
+    <div class="footer"></div>
+</body>
+</html>

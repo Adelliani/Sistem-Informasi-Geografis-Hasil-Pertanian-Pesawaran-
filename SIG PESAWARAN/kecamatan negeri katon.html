@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+  <style type='text/css'>
+ #peta {
+  background-color: rgb(93, 93, 145);
+                    width: 100%;
+                    height: 600px;
+                }
+                .footer {
+                    width:auto;
+                    height: 10px;
+                    background-color: #7CFC00;
+                    color:rgb(92, 49, 49);
+                    padding:20px;
+          }
+            </style>
+        <center>
+            <div class="header"> <img src= pertanian.jpg height= "95" width= "100"> </div>
+            <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+            <h2> KECAMATAN NEGERI KATON </h2>
+            <center> Hasil Pertanian : Padi, Ubi Kayu, Jagung dan Kacang Tanah</center>
+          </center>
+          <nav id="menu">
+              <ul>
+                   
+                   <li><a href="direction.html">Beranda</a></li>
+                   <li><a href="#">maps</a>
+                   <ul>
+                          <li><a href="json.html">Geojson</a></li>
+                          <li><a href="polygon_bener.html">Polygon</a></li>
+                          <li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+                   <li><a href="#">Kecamatan</a>
+                           <ul>
+                                  
+                                   <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+                                   <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+                                   <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+                                   <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+                                   <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+                                   <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+                                   <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+                                   <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+                           </ul>
+                   </li>
+                   <li><a href="#">HasilPertanian</a>
+                      <ul>
+                             
+                              <li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+                              <li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+                              <li> <a href="HasPer PADI.html">Padi </a></li>
+                              <li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+                              
+                      </ul>
+              </li>
+           </ul>
+      </nav>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+   <script type="text/javascript">
+    
+    (function() {
+  window.onload = function() {
+var map;
+    //Parameter Google maps
+    var options = {
+      zoom: 11, //level zoom
+      //posisi tengah peta
+      center: new google.maps.LatLng(-5.284466,105.054165),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    
+     // Buat peta di 
+    var map = new google.maps.Map(document.getElementById('peta'), options);
+     // Tambahkan Marker 
+    var locations = [
+		['<center><h2> Desa Roworejo <h2><hr>'+
+		 'Hasil Pertanian : Padi',-5.319536, 105.049902],
+		['<center><h2> Desa Bangun Sari<h2><hr>'+
+		 'Hasil Pertanian : Padi',-5.211845, 105.064664],
+        ['<center><h2> Desa Tanjung Rejo <h2><hr>'+
+		 'Hasil Pertanian : Padi',-5.341030, 105.141356],
+        ['<center><h2> Desa Purworejo <h2><hr>'+
+		 'Hasil Pertanian : Jagung',-5.357053, 105.085458],
+		['<center><h2> Desa Karang Rejo <h2><hr>'+
+		 'Hasil Pertanian : Jagung',-5.341115, 105.061318],
+        ['<center><h2> Desa Tanjung Rejo <h2><hr>'+
+		 'Hasil Pertanian : Jagung',-5.320642, 105.147059],
+        ['<center><h2> Desa Way Gunung Sugih <h2><hr>'+
+		 'Hasil Pertanian : Hutan',-5.370085, 105.208261],
+        ['<center><h2> Desa Poncokresno <h2><hr>'+
+		 'Hasil Pertanian : Ubi Kayu',-5.253898, 105.046769],
+        ['<center><h2> Desa Sinar Bandung <h2><hr>'+
+		 'Hasil Pertanian : Ubi Kayu',-5.194578, 105.090456],
+        ['<center><h2> Desa Halangan Ratu <h2><hr>'+
+		 'Hasil Pertanian : Kacang Tanah',-5.266971, 105.135645],
+        ['<center><h2> Desa TTri Rahayu <h2><hr>'+
+		 'Hasil Pertanian : Kacang Tanah',-5.223255, 105.109446],
+        ['<center><h2> Desa Keagungan Ratu <h2><hr>'+
+		 'Hasil Pertanian : Kacang Tanah',-5.364274, 105.128610],
+        ['<center><h2> Desa Pejambon <h2><hr>'+
+		 'Hasil Pertanian : Kacang Tanah',-5.239622, 105.133843]
+    
+    ];
+      var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+     /* kode untuk menampilkan banyak marker */
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+         icon: 'images/pin.png'
+      });
+     /* menambahkan event clik untuk menampikan
+          infowindows dengan isi sesuai denga
+        marker yang di klik */
+        
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  
+
+  };
+})();
+
+    </script>
+  </head>
+  <body>
+    
+    <div id="peta"></div>
+
+  </body>
+  <body bgcolor=#7CFC00>
+    <div id="map"></div>
+    <div class="footer"> <center> Designed by Adelliani, Anna Ainia, Eggi Amandara Sari</center></div>
+</body>
+</html>
+
