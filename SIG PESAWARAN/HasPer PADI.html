@@ -1,0 +1,139 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+  <style type='text/css'>
+  #peta {
+    background-color: rgb(93, 93, 145);
+                    width: 100%;
+                    height: 600px;
+                }
+                .footer {
+                    width:auto;
+                    height: 10px;
+                    background-color: #7CFC00;
+                    color:rgb(92, 49, 49);
+                    padding:20px;
+          }
+            </style>
+        <center>
+            <div class="header"> <img src= pertanian.jpg height= "95" width= "100"> </div>
+            <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+            <h2> HASIL PERTANIAN PADI <br> KABUPATEN PESAWARAN </h2>
+          </center>
+          <nav id="menu">
+            <ul>
+                 
+              <li><a href="imageoverlay.html">Beranda</a></li>
+              <li><a href="#">maps</a>
+              <ul>
+                     <li><a href="json.html">Geojson</a></li>
+                     <li><a href="polygon_bener.html">Polygon</a></li>
+                     <li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+             
+                     <li><a href="direction.html">Direction</a></li>
+                     <li><a href="elevation.html">Elevation</a></li>
+                     <li><a href="#">Kecamatan</a>
+                      <ul>
+                                
+                                 <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+                                 <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+                                 <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+                                 <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+                                 <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+                                 <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+                                 <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+                                 <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+                         </ul>
+                 </li>
+                 <li><a href="#">HasilPertanian</a>
+                    <ul>
+                           
+                            <li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+                            <li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+                            <li> <a href="HasPer PADI.html">Padi </a></li>
+                            <li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+                            
+                    </ul>
+            </li>
+         </ul>
+        </nav>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+   <script type="text/javascript">
+
+    (function() {
+  window.onload = function() {
+var map;
+    //Parameter Google maps
+    var options = {
+      zoom: 10.7, //level zoom
+      //posisi tengah peta
+      center: new google.maps.LatLng(-5.390971, 105.065760),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    
+     // Buat peta di 
+    var map = new google.maps.Map(document.getElementById('peta'), options);
+     // Tambahkan Marker 
+    var locations = [
+		['<center><h2> Desa Sukadadi <h2><hr>'+'Kecamatan : Gedong Tataan',-5.421948, 105.095523],
+		['<center><h2> Desa Karang Anyar <h2><hr>'+'Kecamatan : Gedong Tataan',-5.357985, 105.087603],
+        ['<center><h2> Desa Taman Sari <h2><hr>'+'Kecamatan : Gedong Tataan',-5.350292, 105.145581],
+		['<center><h2> Desa Way Layap <h2><hr>'+'Kecamatan : Gedong Tataan',-5.405327, 105.053186],
+        ['<center><h2> Desa Margodadi <h2><hr>'+'Kecamatan : Way Lima',-5.473206, 105.056867],
+		['<center><h2> Desa Cimanuk <h2><hr>'+'Kecamatan : Way Lima',-5.451333, 105.011377],
+        ['<center><h2> Desa Gunung Rejo <h2><hr>'+'Kecamatan : Way Lima',-5.432877, 104.981165],
+		['<center><h2> Desa Paguyuban <h2><hr>'+'Kecamatan : Way Lima',-5.390152, 105.017642],
+        ['<center><h2> Desa Sidodadi <h2><hr>'+'Kecamatan : Way Lima',-5.383999, 105.028414],
+        ['<center><h2> Desa Sinar Harapan<h2><hr>'+'Kecamatan : Kedondong',-5.541305, 104.995421],
+		['<center><h2> Desa Suka Maju<h2><hr>'+'Kecamatan : Kedondong',-5.514479, 104.997652],
+        ['<center><h2> Desa Way Kepayang<h2><hr>'+'Kecamatan : Kedondong',-5.519776, 105.004347],
+		['<center><h2> Desa Tanjung Rejo<h2><hr>'+'Kecamatan : Kedondong',-5.467659, 104.983833],
+        ['<center><h2> Desa Roworejo <h2><hr>'+'Kecamatan : Negeri Katon',-5.319536, 105.049902],
+		['<center><h2> Desa Bangun Sari<h2><hr>'+'Kecamatan : Negeri Katon',-5.211845, 105.064664],
+        ['<center><h2> Desa Tanjung Rejo <h2><hr>'+'Kecamatan : Negeri Katon',-5.341030, 105.141356],
+        ['<center><h2> Desa Trimulyo <h2><hr>'+'Kecamatan : Tegineneng',-5.183551, 105.123948],
+		['<center><h2> Desa Margo Mulyo<h2><hr>'+'Kecamatan : Tegineneng',-5.151876, 105.149695]
+    
+    ];
+    var infowindow = new google.maps.InfoWindow();
+
+var marker, i;
+ /* kode untuk menampilkan banyak marker */
+for (i = 0; i < locations.length; i++) {  
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+    map: map,
+     icon: 'images/pin.png' 
+     
+  });
+ /* menambahkan event clik untuk menampikan
+      infowindows dengan isi sesuai denga
+    marker yang di klik */
+    
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    return function() {
+      infowindow.setContent(locations[i][0]);
+      infowindow.open(map, marker);
+    }
+  })(marker, i));
+}
+
+
+};
+})();
+
+</script>
+</head>
+<body>
+
+<div id="peta"></div>
+
+</body>
+<body bgcolor=#7CFC00>
+<div id="map"></div>
+<div class="footer"> <center> Designed by Adelliani, Anna Ainia, Eggi Amandara Sari</center></div>
+</body>
+</html>

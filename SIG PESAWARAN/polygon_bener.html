@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<link rel="stylesheet" type="text/css" href="style.css">
+  		<title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+	<style>
+     html,body,#mapp {
+          background-color: #7CFC00(93, 93, 145);
+          width: 100%;
+          height: 400px;
+      }
+	</style>
+  </html>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+     <center>
+    <div class="header"> <img src= pertanian.jpg height= "70" width= "70"> </div>
+		 <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+		 <h2> Polygon Pesawaran</h2>h2></h2>
+		</center>
+		<nav id="menu">
+	<ul>
+		 
+						 <li><a href="SIG_PERTANIAN_PESAWARAN.html">Beranda</a></li>
+						 <li><a href="#">maps</a>
+						 <ul>
+										<li><a href="geojson.html">Geojson</a></li>
+										<li><a href="polygon_bener.html">Polygon</a></li>
+										<li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+		 <li><a href="#">Kecamatan</a>
+				 <ul>
+						
+						 <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+						 <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+						 <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+						 <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+						 <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+						 <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+						 <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+						 <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+				 </ul>
+						 </li>
+						 <li><a href="#">Hasil Pertanian</a>
+								<ul>
+											 
+												<li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+												<li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+												<li> <a href="HasPer PADI.html">Padi </a></li>
+												<li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+												
+								</ul>
+				</li>
+ </ul>
+</nav>
+        
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script>
+
+var map;
+var infoWindow;
+
+function initialize() {
+  var mapOptions = {
+    zoom: 9,
+    center: new google.maps.LatLng(-5.422881, 105.258255),
+  };
+  map = new google.maps.Map(document.getElementById('mapp'), mapOptions);
+  infoWindow = new google.maps.InfoWindow();
+  var infowindow = new google.maps.InfoWindow();
+  var contentString = '<h3>INFO MARKER:</h3><hr>'+
+                      '<h4>Kabupaten Pesawaran</h4>';
+  infowindow.setContent(contentString);
+  var marker = new google.maps.Marker({position:new google.maps.LatLng(-5.378284, 105.080419)});
+  marker.addListener('click',function(){
+  infowindow.open(map,marker);
+  });
+	marker.setMap(map);
+  
+  var PunduhPidada = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.767597, 105.151542),
+    new google.maps.LatLng(-5.749493, 105.142959),
+    new google.maps.LatLng(-5.719260, 105.155491),
+    new google.maps.LatLng(-5.719260, 105.155491),
+    new google.maps.LatLng(-5.770841, 105.193857),
+    new google.maps.LatLng(-5.744880, 105.161585),
+    new google.maps.LatLng(-5.739585, 105.165962),
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan Punduh Pidada<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Merupakan daerah pesisir<br>'+
+				'luas wilayah : ±110,46km2<br>', 
+		map: map
+	  });
+	  google.maps.event.addListener(PunduhPidada, 'click', showArrays);
+
+ var MargaPunduh = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.691061, 105.142343),
+    new google.maps.LatLng(-5.688400, 105.158942),
+    new google.maps.LatLng(-5.691691, 105.167566),
+    new google.maps.LatLng(-5.693100, 105.180011),
+    new google.maps.LatLng(-5.676716, 105.221766),
+    new google.maps.LatLng(-5.656679, 105.181671),
+    new google.maps.LatLng(-5.671695, 105.169496),
+   
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name:'<center><h2>Kecamatan Marga Punduh<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas Wilayah: 15,17 Km2 <br>'+
+				'Hasil pertanian: kakao, cengkeh, Pala, dan Palawija<br>'+
+				'Luas Pertanian seluas ±97 Ha dan area Persawahan seluas ±37 Ha', 
+		map: map
+	  });
+	  google.maps.event.addListener(MargaPunduh, 'click', showArrays);
+
+  var PadangCermin = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.641645, 105.160904),
+    new google.maps.LatLng(-5.618412, 105.137558),
+    new google.maps.LatLng(-5.625929, 105.091553),
+    new google.maps.LatLng(-5.596202, 105.127946),
+    new google.maps.LatLng(-5.596202, 105.131379),
+    new google.maps.LatLng(-5.560324, 105.191975),
+    new google.maps.LatLng(-5.524102, 105.212574),
+    new google.maps.LatLng(-5.477625, 105.227680),
+    new google.maps.LatLng(-5.530253, 105.247249),
+    
+
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan Padang Cermin<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas Wilayah: ±139,9km2 <br>'+
+				'Hasil pertanian: Padi,Jagung, Uni jalar, Ubi kayu, Kacang Hijau, Kacang Tanah dan Kedelai<br>'+
+				'Luas Pertanian ±461 Hektar', 
+		map: map
+	  });
+	  google.maps.event.addListener(PadangCermin, 'click', showArrays);
+
+     var WayRatai = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.574675, 105.118160),
+    new google.maps.LatLng(-5.546655, 105.091724),
+    new google.maps.LatLng(-5.594493, 105.026149),
+    new google.maps.LatLng(-5.616360, 105.057735),
+    new google.maps.LatLng(-5.579116, 105.088548),
+    
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan Way Ratai<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah: ±10.503,78Ha, suhu: 26-35oC<br>'+
+				'Hasil pertanian: Pisang, Durian, Duku, Jagung,,Tangkil, Cabe, Padi, Coklat <br>'+
+				'Luas pertanian:  Perkebunan ±4.088Ha, Sawah ±568Ha, Ladang ±568Ha, Perkarangan 523Ha, dll ±4.529,78Ha"<br>',
+			
+		map: map
+	  });
+	  google.maps.event.addListener(WayRatai, 'click', showArrays);
+
+
+ var Kedondong = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.567959, 105.019111),
+    new google.maps.LatLng(-5.541305, 104.995421),
+    new google.maps.LatLng(-5.519776, 105.004347),
+		new google.maps.LatLng(-5.514479, 104.997652),
+    new google.maps.LatLng(-5.488165, 105.002115),
+    new google.maps.LatLng(-5.466976, 104.994562),
+		new google.maps.LatLng(-5.467659, 104.983833),
+    new google.maps.LatLng(-5.439976, 104.988468),
+    new google.maps.LatLng(-5.466634, 105.026577),
+		new google.maps.LatLng(-5.487139, 105.036533),
+    new google.maps.LatLng(-5.493034, 105.044429),
+
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan Kedondong<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah 73,37km2, <br>'+
+				'Hasil pertanian: padi <br>'+
+				'luas wilayah pertanian: ±2.628 Ha<br>',
+		map: map
+	  });
+	  google.maps.event.addListener(Kedondong, 'click', showArrays);
+
+   var WayKhilau = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.547894, 104.986054),
+    new google.maps.LatLng(-5.529099, 104.955155),
+    new google.maps.LatLng(-5.478180, 104.931466),
+		new google.maps.LatLng(-5.435459, 104.970605),
+    new google.maps.LatLng(-5.465193, 104.976270),
+    new google.maps.LatLng(-5.468440, 104.982793),
+		new google.maps.LatLng(-5.469294, 104.986312),
+
+
+
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2> Kecamatan Way Khilau<h2><hr>'+
+			  'INFO:</center>'+
+				'<center>Luas wilayah 73,37km2, <br>',
+		map: map
+	  });
+	  google.maps.event.addListener(WayKhilau, 'click', showArrays);
+
+  var WayLima = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.457827, 105.059442),
+    new google.maps.LatLng(-5.473206, 105.056867),
+    new google.maps.LatLng(-5.463637, 105.023393),
+    new google.maps.LatLng(-5.451333, 105.011377),
+    new google.maps.LatLng(-5.432877, 104.981165),
+    new google.maps.LatLng(-5.429673, 104.963226),
+    new google.maps.LatLng(-5.420487, 104.983267),
+		new google.maps.LatLng(-5.400663, 104.973654),
+    new google.maps.LatLng(-5.390152, 105.017642),
+    new google.maps.LatLng(-5.383999, 105.028414),
+    new google.maps.LatLng(-5.406251, 105.047945),
+    new google.maps.LatLng(-5.430774, 105.058073),
+		new google.maps.LatLng(-5.445812, 105.041422),
+    new google.maps.LatLng(-5.452305, 105.040564),
+    
+
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan  Way Lima<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah ±168,79km2 <br>'+
+				'Hasil pertanian: padi<br>'+
+				'luas wilayah pertanian: ±1.988Ha"<br></center>',
+		map: map
+	  });
+	  google.maps.event.addListener(WayLima, 'click', showArrays);
+
+ var GedongTataan = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.388539, 105.132260),
+    new google.maps.LatLng(-5.408021, 105.110759),
+    new google.maps.LatLng(-5.421948, 105.095523),
+		new google.maps.LatLng(-5.451341, 105.089815),
+    new google.maps.LatLng(-5.412377, 105.051792),
+    new google.maps.LatLng(-5.405327, 105.053186),
+		new google.maps.LatLng(-5.390971, 105.065760),
+    new google.maps.LatLng(-5.366873, 105.074214),
+    new google.maps.LatLng(-5.357985, 105.087603),
+		new google.maps.LatLng(-5.362343, 105.103567),
+    new google.maps.LatLng(-5.352942, 105.130990),
+    new google.maps.LatLng(-5.350292, 105.145581),
+		new google.maps.LatLng(-5.352514, 105.167274),
+    new google.maps.LatLng(-5.358709, 105.186779),
+		new google.maps.LatLng(-5.362343, 105.103567),
+    new google.maps.LatLng(-5.361870, 105.197164),
+    new google.maps.LatLng(-5.388189, 105.184590),
+
+
+
+	
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan Gedong Tataan<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah 165,2km2</br>'+
+				'Hasil pertanian pagi, jagung ubi kayu<br>'+
+				'luas pertanian lahan sawah ±2.489 dan non sawah ±14.615"</br></center>',
+				
+		map: map
+	  });
+	  google.maps.event.addListener(GedongTataan, 'click', showArrays);
+
+  var Tegineneng = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.202912, 105.168087),
+    new google.maps.LatLng(-5.213682, 105.161049),
+		new google.maps.LatLng(-5.183551, 105.123948),
+    new google.maps.LatLng(-5.194962, 105.087706),
+		new google.maps.LatLng(-5.201543, 105.073286),
+    new google.maps.LatLng(-5.186840, 105.049639),
+		new google.maps.LatLng(-5.171111, 105.059295),
+    new google.maps.LatLng(-5.152646, 105.089979),
+		new google.maps.LatLng(-5.151876, 105.149695),
+		new google.maps.LatLng(-5.139908, 105.158964),
+    new google.maps.LatLng(-5.131957, 105.177932),
+		new google.maps.LatLng(-5.154995, 105.208895),
+    new google.maps.LatLng(-5.158927, 105.221855),
+
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan Tegineneng<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah: ±142,63km2<br>'+
+				'Hasil Pertanian: Ubi Kayu, Jagung, Padi<br>'+
+				'Luas Pertanian: 9.367Ha<br><br></center>',
+		map: map
+	  });
+	  google.maps.event.addListener(Tegineneng, 'click', showArrays);
+
+
+var NegeriKaton = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.370085, 105.208261),
+    new google.maps.LatLng(-5.341030, 105.141356),
+		new google.maps.LatLng(-5.364274, 105.128610),
+    new google.maps.LatLng(-5.357053, 105.085458),
+		new google.maps.LatLng(-5.341115, 105.061318),
+    new google.maps.LatLng(-5.334876, 105.054730),
+		new google.maps.LatLng(-5.319536, 105.049902),
+    new google.maps.LatLng(-5.253898, 105.046769),
+		new google.maps.LatLng(-5.211845, 105.064664),
+    new google.maps.LatLng(-5.194578, 105.090456),
+		new google.maps.LatLng(-5.223255, 105.109446),
+    new google.maps.LatLng(-5.235563, 105.101335),
+		new google.maps.LatLng(-5.247999, 105.122771),
+    new google.maps.LatLng(-5.239622, 105.133843),
+		new google.maps.LatLng(-5.271758, 105.157661),
+    new google.maps.LatLng(-5.266971, 105.135645),
+		new google.maps.LatLng(-5.312438, 105.114487),
+    new google.maps.LatLng(-5.320642, 105.147059),
+    
+
+		], 
+    strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '<center><h2>Kecamatan NegeriKaton<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas Wilayah ±142,12Km2<br>'+
+				'Hasil pertanian:Padi, Ubi Kayu, Jagung, Kacang Tanah<br>'+
+				'Luas Pertanian: ±2.198Hektar<br></center>',
+				
+		map: map
+	  });
+	  google.maps.event.addListener(NegeriKaton, 'click', showArrays);
+
+ 
+}
+function showArrays(event) {
+  var vertices = this.getPath();
+  var contentString = '<b>' + this.name + '</b>';
+  infoWindow.setPosition(event.latLng);
+  infoWindow.setContent(contentString);
+  infoWindow.open(map);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+  </head>
+  <style>
+  .footer {
+    width:auto;
+    height: 4px;
+    background-color:#7CFC00;
+    color:black;
+    padding:15px;
+}
+</style>
+  <body bgcolor=#7CFC00>
+        <div id="mapp"></div>
+        <div class="footer"> <center> Designed by Adelliani, Anna Ainia, Eggi Amandara Sari</center></div>
+								</body>
+							</script>
+							<script async defer 
+							src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqIy-vX5tDUpnN5EUuIVG5fNeEuHWm3q4&callback=initMap"></script>
+							<script src="src/markerclusterer.js">
+							</script>
+</html>

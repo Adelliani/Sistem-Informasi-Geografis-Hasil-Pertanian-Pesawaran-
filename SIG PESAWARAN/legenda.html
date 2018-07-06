@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width"> 
+        <title>SIG Pertanian Kabupaten Pesawaran</title> 
+        <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+      html { height: 100% }
+    #panel{padding:5px;}
+       .input {
+    height: 25px;
+    padding: 2px;
+    width: 200px;
+       }
+    .select{
+    height: 33px;
+    padding: 2px;
+    }
+    #btn{
+      height: 31px;
+      background: #7CFC00;
+      border: none;
+      padding: 5px;
+      color: #fff;
+    }
+    #directions-panel {
+         height: 100%;
+         float: right;
+         width: 300px;
+         overflow: auto;
+       }
+    #map-canvas { height: 600px;}
+    *{
+    margin: 0;
+    padding: 0;
+   }
+   body {
+    text-align:center;
+    background-color:#7CFC00;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:80%;
+    color:#666;
+   }
+   .wrap {
+    background: #f3f8fb;
+    width:900px;
+    margin:30px auto;
+    border: 4px dashed #7CFC00;
+    border-radius:4px;
+    padding: 20px 5px;
+   }
+   h1 {
+    font-family:Georgia, "Times New Roman", Times, serif;
+    font-size:24px;
+    color:#645348;
+    text-decoration:none;
+    font-weight:100;
+    padding: 10px;
+   }
+   .copy{
+    margin-top: 20px;
+    clear: both;
+   }
+   @media print {
+    #map-canvas {
+      height: 500px;
+      margin: 0;
+    }
+ 
+    #directions-panel {
+      float: none;
+      width: 100%;
+    }
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 200%;
+        width: 100%;
+      }
+      #map {
+        /* height: 400px; */
+		height: 200%;
+        width: 100%;
+      }
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 15px;
+        margin: 15px;
+        border: 4px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+   }
+    </style>
+  </head>
+  <body>
+        <body bgcolor= #7CFC00>
+          <center>
+            <div class="header"> <img src= pertanian.jpg height= "95" width= "100"> </div>
+            <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+          </center>
+                <nav id="menu">
+                  <ul>
+                       
+                    <li><a href="legenda.html">Beranda</a></li>
+                    <li><a href="#">maps</a>
+                    <ul>
+                           
+                           <li><a href="json.html">Geojson</a></li>
+                           <li><a href="polygon_bener.html">Polygon</a></li>
+                           <li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+                   
+                           <li><a href="imageoverlay.html">Overlay</a></li>
+                           <li><a href="direction.html">Direction</a></li>
+                           <li><a href="elevation.html">Elevation</a></li>
+                           <li><a href="#">Kecamatan</a>
+                            <ul>
+                                      
+                                       <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+                                       <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+                                       <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+                                       <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+                                       <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+                                       <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+                                       <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+                                       <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+                               </ul>
+                       </li>
+                       <li><a href="#">HasilPertanian</a>
+                          <ul>
+                                 
+                                  <li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+                                  <li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+                                  <li> <a href="HasPer PADI.html">Padi </a></li>
+                                  <li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+                                  
+                          </ul>
+                  </li>
+               </ul>
+              </nav>
+                </center>
+                
+            <script src="http://maps.googleapis.com/maps/api/js"></script>
+            
+            
+            <body> 
+                <div id="kotak">
+                    <div id="map" style="width:100%;height:400px;"></div>
+                    </form>
+                </div>   
+    <div id="map"></div>
+    <div id="legend"><h3>Legend</h3></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10.5,
+          //center: new google.maps.LatLng(-33.91722, 151.23064),
+		  // the old one is in UNSW, Australia
+		  // change it into UIN Suska: 101.35475,0.46559
+          center: new google.maps.LatLng(-5.4820603,104.8583266),
+          mapTypeId: 'roadmap'
+        });
+        var iconBase = 'images/';
+        var icons = {
+          padi: {
+            name: 'Padi      ',
+            icon: iconBase + 'gambar padi.jpg'
+          },
+          jagung : {
+            name: '   Jagung',
+            icon: iconBase + 'gambar jagung.jpg'
+          },
+          kacangtanah: {
+            name: 'Kacang Tanah',
+            icon: iconBase + 'gambar kacang tanah.jpg'
+          },
+          ubikayu: {
+            name: 'Ubi Kayu',
+            icon: iconBase + 'gambar ubi kayu.jpg'
+          }
+        };
+        function addMarker(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+		  
+		  // since not every feature has content, only add infoWindow when content exist
+		  if(feature.content){
+			  var marker_infoWindow = new google.maps.InfoWindow({
+				content: feature.content
+			  });
+			  marker.addListener('click', function() {
+				marker_infoWindow.open(map, marker);
+			  });
+			  
+			  
+		  }
+        }
+        var features = [
+          {
+            position: new google.maps.LatLng(-5.421948, 105.095523),
+			content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.357985, 105.087603),
+			content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.350292, 105.145581),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.405327, 105.053186),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.473206, 105.056867),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.451333, 105.011377),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.432877, 104.981165),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.390152, 105.017642),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.383999, 105.028414),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.541305, 104.995421),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.514479, 104.997652),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.519776, 105.004347),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.467659, 104.983833),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.319536, 105.049902),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.211845, 105.064664),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.341030, 105.141356),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.183551, 105.123948),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.151876, 105.149695),
+            content: 'Penghasil padi',
+            type: 'padi'
+          }, {
+            position: new google.maps.LatLng(-5.408021, 105.110759),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.366873, 105.074214),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.357985, 105.087603),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.358709, 105.186779),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.357053, 105.085458),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.341115, 105.061318),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.320642, 105.147059),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.201543, 105.073286),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.186840, 105.049639),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.152646, 105.089979),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.131957, 105.177932),
+            content: 'Penghasil jagung',
+            type: 'jagung'
+          }, {
+            position: new google.maps.LatLng(-5.266971, 105.135645),
+            content: 'Penghasil Kacang Tanah',
+            type: 'kacangtanah'
+          }, {
+            position: new google.maps.LatLng(-5.223255, 105.109446),
+            content: 'Penghasil Kacang Tanah',
+            type: 'kacangtanah'
+          }, {
+            position: new google.maps.LatLng(-5.364274, 105.128610),
+            content: 'Penghasil Kacang Tanah',
+            type: 'kacangtanah'
+          }, {
+            position: new google.maps.LatLng(-5.239622, 105.133843),
+            content: 'Penghasil Kacang Tanah',
+            type: 'kacangtanah'
+          }, {
+            position: new google.maps.LatLng(-5.451341, 105.089815),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.352514, 105.167274),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.388189, 105.184590),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.370085, 105.208261),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.253898, 105.046769),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.194578, 105.090456),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.202912, 105.168087),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.171111, 105.059295),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.202912, 105.168087),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+          }, {
+            position: new google.maps.LatLng(-5.154995, 105.208895),
+            content: 'Penghasil Ubi Kayu',
+            type: 'ubikayu'
+  
+          },
+        ];
+        for (var i = 0, feature; feature = features[i]; i++) {
+          addMarker(feature);
+        }
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Xosas2wTLHrT6nZSJPRl_kg6HD0ZbhE&callback=initMap">
+    </script>
+  </body>
+</html>

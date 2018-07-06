@@ -1,0 +1,314 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width"> 
+  <title>SIG Hasil Pertanian Kabupaten Pesawaran</title> 
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<body bgcolor= #7CFC00>
+    <center>
+            <div class="header"> <img src= pertanian.jpg height= "70" width= "70"> </div>
+            <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+           </center>
+           <nav id="menu">
+            <ul>
+                 
+                 <li><a href="imageoverlay.html">Beranda</a></li>
+                 <li><a href="#">maps</a>
+                 <ul>
+                        <li><a href="json.html">Geojson</a></li>
+                        <li><a href="polygon_bener.html">Polygon</a></li>
+                        <li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+                
+                        <li><a href="direction.html">Direction</a></li>
+                        <li><a href="elevation.html">Elevation</a></li>
+                        <li><a href="#">Kecamatan</a>
+                         <ul>
+                                
+                                 <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+                                 <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+                                 <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+                                 <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+                                 <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+                                 <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+                                 <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+                                 <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+                         </ul>
+                 </li>
+                 <li><a href="#">HasilPertanian</a>
+                    <ul>
+                           
+                            <li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+                            <li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+                            <li> <a href="HasPer PADI.html">Padi </a></li>
+                            <li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+                            
+                    </ul>
+            </li>
+         </ul>
+      </nav>
+      
+    </center>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+
+<body>
+        <body> 
+                <div id="kotak">
+                    <div id="map" style="width:100%;height:400px;"></div>
+                    </form>
+                </div>   
+            </body> 
+            <style>
+                    .controls {
+                                margin-top: 10px;
+                                border: 1px solid transparent;
+                                border-radius: 2px 0 0 2px;
+                                box-sizing: border-box;
+                                -moz-box-sizing: border-box;
+                                height: 32px;
+                                outline: none;
+                                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                              }
+                              #searchInput {
+                                  background-color: #fff;
+                                  font-family: Roboto;
+                                  font-size: 15px;
+                                  font-weight: 300;
+                                  margin-left: 12px;
+                                  padding: 0 11px 0 13px;
+                                  text-overflow: ellipsis;
+                                  width: 50%;
+                              }
+                              #searchInput:focus {
+                                  border-color: #7CFC00;
+                              }
+                              .keterangan{
+                              background-color: white;
+                            }
+                        </style>
+                    
+                    <input id="searchInput" class="controls" type="text" placeholder="Enter a location">
+                    <div id="map"></div> 
+<script>
+
+function initialize(){
+	var mapOptions = {
+		zoom:9,
+		center: new google.maps.LatLng(-5.367284, 105.244935),
+	};
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	
+	infoWindow = new google.maps.InfoWindow();
+	var infowindow = new google.maps.InfoWindow();
+	
+	var contentString;
+	infowindow.setContent(contentString);
+  
+	var marker = new google.maps.Marker();
+	marker.addListener('click',function(){
+		infowindow.open(map,marker);
+  ``});
+	marker.setMap(map);
+	
+	var infoWin = new google.maps.InfoWindow();
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+    var markers = locations.map(function(location, i) {
+        var marker = new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+        });
+		google.maps.event.addListener(marker, 'click', function(evt) {
+			infoWin.setContent(location.info);
+			infoWin.open(map, marker);
+		})
+		return marker;
+    }); 
+    
+	console.log(locations);
+    console.log(markers);
+
+    var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'images/m'});
+        
+    var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+    console.log(markerCluster.getCalculator());
+
+	var GedongTataan = new google.maps.Polygon({
+		paths: [
+    new google.maps.LatLng(-5.388539, 105.132260),
+    new google.maps.LatLng(-5.408021, 105.110759),
+    new google.maps.LatLng(-5.421948, 105.095523),
+	new google.maps.LatLng(-5.451341, 105.089815),
+    new google.maps.LatLng(-5.412377, 105.051792),
+    new google.maps.LatLng(-5.405327, 105.053186),
+	new google.maps.LatLng(-5.390971, 105.065760),
+    new google.maps.LatLng(-5.366873, 105.074214),
+    new google.maps.LatLng(-5.357985, 105.087603),
+	new google.maps.LatLng(-5.362343, 105.103567),
+    new google.maps.LatLng(-5.352942, 105.130990),
+    new google.maps.LatLng(-5.350292, 105.145581),
+	new google.maps.LatLng(-5.352514, 105.167274),
+    new google.maps.LatLng(-5.358709, 105.186779),
+	new google.maps.LatLng(-5.362343, 105.103567),
+    new google.maps.LatLng(-5.361870, 105.197164),
+    new google.maps.LatLng(-5.388189, 105.184590)
+		], 
+		strokeWeight: 3,
+		fillColor: '#12A0C9',
+		fillOpacity: 0.30,
+		strokeColor: '#12A0C9',
+		strokeOpacity: 0.7,
+		name: '', 
+		map: map
+	});
+	google.maps.event.addListener(GedongTataan, 'click', showArrays);
+
+    }
+	
+	function showArrays(event) {
+		var vertices = this.getPath();
+		var contentString = '<b>' + this.name + '</b>';
+		infoWindow.setPosition(event.latLng);
+		infoWindow.setContent(contentString);
+		infoWindow.open(map);
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+     var locations = [
+        
+     var locations = [
+        {lat: -5.659498, lng: 105.156952, info: "<center><h2>Kecamatan Marga Punduh<h2><hr>INFO:<center>Luas Wilayah: 15,17 Km2 <br>Hasil pertanian: kakao, cengkeh, Pala, dan Palawija<br>Luas Pertanian seluas ±97 Ha dan area Persawahan seluas ±37 Ha"},
+        {lat: -5.535958, lng: 105.227883, info: "<center><h2>Kecamatan Padang Cermin<h2><hr>INFO:</center>'<center>Luas Wilayah: ±139,9km2 <br>'Hasil pertanian: Padi,Jagung, Uni jalar, Ubi kayu, Kacang Hijau, Kacang Tanah dan Kedelai<br>Luas Pertanian ±461 Hektar"},
+        {lat: -5.600866, lng: 105.073301, info:"<center><h2>Kecamatan Way Ratai<h2><hr>INFO:</center><center>Luas wilayah: ±10.503,78Ha, suhu: 26-35oC<br>Hasil pertanian: Pisang, Durian, Duku, Jagung,,Tangkil, Cabe, Padi, Coklat <br>Luas pertanian:  Perkebunan ±4.088Ha, Sawah ±568Ha, Ladang ±568Ha, Perkarangan 523Ha, dll ±4.529,78Ha<br>"},
+        {lat: -5.491850, lng: 104.965455, info:  "<center><h2>Kecamatan Kedondong<h2><hr>INFO:</center><center>Luas wilayah 73,37km2, <br>Hasil pertanian: padi <br>luas wilayah pertanian: ±2.628 Ha<br>"},
+        {lat: -5.417839, lng: 105.015153, info:"<center><h2>Kecamatan  Way Lima<h2><hr>INFO:</center><center>Luas wilayah ±168,79km2 <br>'Hasil pertanian: padi<br>'luas wilayah pertanian: ±1.988Ha<br></center>"},
+        {lat: -5.384999, lng: 105.083161, info:  "<center><h2>Kecamatan Gedong Tataan<h2><hr>INFO:</center><center>Luas wilayah 165,2km2</br>Hasil pertanian padi, jagung dan ubi kayu<br>luas pertanian lahan sawah ±2.489 dan non sawah ±14.615"</br></center>""},
+        {lat: -5.159458, lng: 105.122460, info:  "<center><h2>Kecamatan Tegineneng<h2><hr>INFO:</center><center>Luas wilayah: ±142,63km2<br>Hasil Pertanian: Ubi Kayu, Jagung, Padi<br>Luas Pertanian: 9.367Ha<br><br></center>"},
+        {lat: -5.284466, lng: 105.054165, info:"<center><h2>Kecamatan NegeriKaton<h2><hr>INFO:</center><center>Luas Wilayah ±142,12Km2<br>Hasil pertanian:Padi, Ubi Kayu, Jagung, Kacang Tanah<br>Luas Pertanian: ±2.198Hektar<br></center>"},
+      ]
+</script>
+
+ <div id = "map"></div>
+ <div id = "map"></div>
+ <script src="https://www.gstatic.com/firebasejs/5.0.1/firebase.js"></script>
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeAZbbQwLdqYLmP6qo3G7pzDVFQByHRbQ&callback=initMap"></script>
+ <script>  
+ var map = null;
+ var center = {lat: -5.387218, lng: 105.261122};
+ var infowindow;
+
+ var config = {
+    apiKey: "AIzaSyCkeu6D9dcYJyaUxg--8vQuSpwDEpfX7VQ",
+                authDomain: "geojson1.firebaseapp.com",
+                databaseURL: "https://geojson1.firebaseio.com",
+                projectId: "geojson1",
+                storageBucket: "geojson1.appspot.com",
+                messagingSenderId: "348433481094"
+            };
+        firebase.initializeApp(config);
+
+        var db = firebase.database();
+        var dataRef = db.ref('pesawaran')
+
+        dataRef.on('value', showData, showError);
+        function showData(data){
+            //console.log(data.val());
+            map.data.addGeoJson(data.val()); 
+            map.data.setStyle({
+                fillColor :'#ff1e1e',
+                strokeWeight: 0.2
+            });
+            map.data.addListener('click', function(event){
+                infoWindowContent = event.feature.getProperty('DESA')+"<br>"+event.feature.getProperty('KECAMATAN');
+                infowindow.setContent(infoWindowContent);
+                infowindow.setPosition(event.latLng);
+                infowindow.open(map);
+        
+            });
+        }
+        function showError(err){
+            console.log(err);
+        }
+        function initMap(){
+            map = new google.maps.Map(document.getElementById('map'),{
+                zoom: 11,
+                center: center
+            });
+            infowindow = new google.maps.InfoWindow();
+            var input = document.getElementById('searchInput');
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    autocomplete.addListener('place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
+  
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+        }
+        marker.setIcon(({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+    
+        var address = '';
+        if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+        }
+    
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+      
+        //Location details
+        for (var i = 0; i < place.address_components.length; i++) {
+            if(place.address_components[i].types[0] == 'postal_code'){
+                document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
+            }
+            if(place.address_components[i].types[0] == 'country'){
+                document.getElementById('country').innerHTML = place.address_components[i].long_name;
+            }
+        }
+        document.getElementById('location').innerHTML = place.formatted_address;
+    });
+
+            markerlokasi.addListener('click',function(){
+                    infowindowlokasi.open(map,markerlokasi);
+                    });
+                    markerlokasi.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCojIfYtnnBBTZKlPe5Wvb-KnDPoV5kVWA&libraries=places&callback=initMap" async defer></script>
+</html>
+<script src="src/markerclusterer.js"></script>
+</html>
