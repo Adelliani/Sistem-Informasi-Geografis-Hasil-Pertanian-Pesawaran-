@@ -1,0 +1,187 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+            <style>
+                #map {
+                    background-color: rgb(93, 93, 145);
+                    width: 100%;
+                    height: 600px;
+                }
+                .footer {
+                    width:auto;
+                    height: 10px;
+                    background-color: #7CFC00;
+                    color:rgb(92, 49, 49);
+                    padding:20px;
+          }
+            </style>
+        </head>
+        <center>
+            <div class="header"> <img src= pertanian.jpg height= "100" width= "100"> </div>
+            <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+            <h2>Hasil Pertanian Kecamatan Way Ratai </h2>
+                
+        </center>
+        <nav id="menu">
+                <ul>
+                     
+                     <li><a href="direction.html">Beranda</a></li>
+                     <li><a href="#">maps</a>
+                     <ul>
+                            <li><a href="json.html">Geojson</a></li>
+                            <li><a href="polygon_bener.html">Polygon</a></li>
+                            <li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+                     <li><a href="#">Kecamatan</a>
+                             <ul>
+                                    
+                                     <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+                                     <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+                                     <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+                                     <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+                                     <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+                                     <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+                                     <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+                                     <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+                             </ul>
+                     </li>
+                     <li><a href="#">HasilPertanian</a>
+                        <ul>
+                               
+                                <li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+                                <li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+                                <li> <a href="HasPer PADI.html">Padi </a></li>
+                                <li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+                                
+                        </ul>
+                </li>
+             </ul>
+        </nav>
+       
+        <body bgcolor=#7CFC00>
+                <div id="map"></div>
+                <div class="footer"> <center> Designed by Adelliani, Anna Ainia, Eggi Amandara Sari</center></div>
+        </body>
+    <script>
+        function initMap(){
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 9,
+    center: {lat: -5.383888,lng: 105.083075}
+     });
+     var infoWin = new google.maps.InfoWindow();
+            // console.log(map);
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+            var markers = locations.map(function(location, i) {
+                var marker = new google.maps.Marker({
+                    position: location,
+                    label: labels[i % labels.length]
+                });
+     google.maps.event.addListener(marker, 'click', function(evt) {
+      infoWin.setContent(location.info);
+      infoWin.open(map, marker);
+    })
+    return marker;
+                }); 
+            console.log(locations);
+            console.log(markers);
+
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'images/m'});
+        
+            var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+            console.log(markerCluster.getCalculator());
+            // var marker=new google.maps.Marker({position:center,map:map});
+            // console.log(marker);
+        }
+
+        var locations = [
+        {lat: -5.616870, lng: 105.087400, info:
+            '<center><h2>Desa Bunut<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Padi</h2><br>'}, 
+        {lat: -5.607580, lng: 105.094658, info:
+            '<center><h2>Desa Bunut<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Pisang</h2><br>'}, 
+        {lat: -5.607591, lng: 105.094508, info:
+            '<center><h2>Desa Bunut<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Duren</h2><br>'}, 
+        {lat: -5.607335, lng: 105.095259, info:
+            '<center><h2>Desa Bunut<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Duku</h2><br>'}, 
+        {lat: -5.607068, lng: 105.095806, info:
+            '<center><h2>Desa Bunut<h2><hr>'+
+			'INFO:</center>'+
+			'<center>Hasil Pertanian= Tangkil<br>'}, 
+        {lat: -5.607677, lng: 105.095667, info:
+            '<center><h2>Desa Bunut<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Cabe</h2><br>'}, 
+        {lat: -5.608436, lng: 105.035524, info:
+            '<center><h2>Desa Sumber Jaya<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Padi</h2><br>'},
+        {lat: -5.608863, lng: 105.034838, info:
+            '<center><h2>Desa Sumber Jaya<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Pisang</h2><br>'},
+        {lat: -5.603177, lng: 105.054064, info:
+            '<center><h2>Desa Sumber Jaya<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Duren</h2><br>'},
+        {lat: -5.601848, lng: 105.046082, info:
+            '<center><h2>Desa Sumber Jaya<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Tangkil</h2><br>'},
+        {lat: -5.601122, lng: 105.035524, info:
+            '<center><h2>Desa Sumber Jaya<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Cabe</h2><br>'}, 
+        {lat: -5.549669, lng: 105.059528, info:
+            '<center><h2>Desa Gunung Rejo<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Jagung </h2><br>'},
+        {lat: -5.541308, lng: 105.063583, info:
+            '<center><h2>Desa Gunung Rejo<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Pisang</h2> <br>'},
+        {lat: -5.537928, lng: 105.069505, info:
+            '<center><h2>Desa Gunung Rejo<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Duren </h2><br>'},
+        {lat: -5.535210, lng: 105.073882, info:
+            '<center><h2>Desa Gunung Rejo<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Duku</h2> <br>'},
+        {lat: -5.551522, lng: 105.045386, info:
+            '<center><h2>Desa Gunung Rejo<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Cabe</h2> <br>'},
+        {lat: -5.583463, lng: 105.068070, info: 
+            '<center><h2>Desa Wates<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Padi</h2> <br>'},
+        {lat: -5.565629, lng: 105.061761, info: 
+            '<center><h2>Desa Wates<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Pisang</h2> <br>'},
+        {lat: -5.575919, lng: 105.081502, info: 
+            '<center><h2>Desa Wates<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Duku</h2> <br>'},
+        {lat: -5.576106, lng: 105.067469, info: 
+            '<center><h2>Desa Wates<h2><hr>'+
+			'INFO:</center>'+
+			'<center><h2>Hasil Pertanian= Cabe</h2> <br>'},
+           
+        
+    ]
+    </script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqIy-vX5tDUpnN5EUuIVG5fNeEuHWm3q4&callback=initMap"></script>
+    <script src="src/markerclusterer.js">
+    </script>
+</html>

@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>SIG Hasil Pertanian Kabupaten Pesawaran</title>
+
+        <style>
+            #map {
+                background-color: rgb(93, 93, 145);
+                width: 100%;
+                height: 600px;
+            }
+            .footer {
+                width:auto;
+                height: 10px;
+                background-color: #7CFC00;
+                color:rgb(92, 49, 49);
+                padding:20px;
+      }
+        </style>
+    </head>
+    <center>
+        <div class="header"> <img src= pertanian.jpg height= "100" width= "100"> </div>
+        <h1> SISTEM INFORMASI GEOGRAFIS <br>HASIL PERTANIAN KABUPATEN PESAWARAN </h1>
+        <h2> Hasil Pertanian Pesawaran </h2>
+            
+    </center>
+    <nav id="menu">
+        <ul>
+             
+             <li><a href="imageoverlay.html">Beranda</a></li>
+             <li><a href="#">maps</a>
+             <ul>
+                    <li><a href="json.html">Geojson</a></li>
+                    <li><a href="polygon_bener.html">Polygon</a></li>
+                    <li><a href="ClusterMarker HasPer Pesawaran.html">ClusterMarker</a></li></ul>
+            
+                    <li><a href="direction.html">Direction</a></li>
+                    <li><a href="elevation.html">Elevation</a></li>
+                    <li><a href="#">Kecamatan</a>
+                     <ul>
+                            
+                             <li> <a href="clustermarker margapunduh.html">Marga Punduh </a></li>
+                             <li> <a href="clustermarker padangcermin.html">Padang Cermin </a></li>
+                             <li> <a href="clustermarker wayratai.html">Way Ratai </a></li>
+                             <li> <a href="kecamatan kedondong.html">Kedondong </a></li>
+                             <li> <a href="kecamatan way lima.html">Way Lima </a></li>
+                             <li> <a href="kecamatan gedong tataan.html">Gedong Tataan </a></li>
+                             <li> <a href="kecamatan tegineneng.html">Tegineneng </a></li>
+                             <li> <a href="kecamatan negeri katon.html">Negeri Katon </a></li>
+                     </ul>
+             </li>
+             <li><a href="#">HasilPertanian</a>
+                <ul>
+                       
+                        <li> <a href="HasPer JAGUNG.html">Jagung </a></li>
+                        <li> <a href="HasPer Kacang Tanah.html">Kacang Tanah </a></li>
+                        <li> <a href="HasPer PADI.html">Padi </a></li>
+                        <li> <a href="HasPer UBI KAYU.html">Ubi Kayu </a></li>
+                        
+                </ul>
+        </li>
+     </ul>
+  </nav>
+  
+
+<input id="searchInput" class="controls" type="text" placeholder="Hasil Pertanian">
+<div id="map"></div>
+<ul id="geoData">
+       <li>Padi: <span id="country"></span></li> 
+       <li>Jagung: <span id="postal_code"></span></li>
+       <li>Ubi Kayu: <span id="location"></span></li>
+       <li>Kacang Tanah: <span id="location"></span></li>
+</ul>  
+   
+    <body bgcolor=#7CFC00>
+            <div id="map"></div>
+            <div class="footer"> <center> Designed by Adelliani, Anna Ainia, Eggi Amandara Sari</center></div>
+    </body>
+<script>
+        function initMap(){
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 9,
+    center: {lat: -5.367284, lng: 105.244935}
+     });
+     var infoWin = new google.maps.InfoWindow();
+            // console.log(map);
+            var labels = '';
+        
+            var markers = locations.map(function(location, i) {
+                var marker = new google.maps.Marker({
+                    position: location,
+                    label: labels[i % labels.length]
+                });
+     google.maps.event.addListener(marker, 'click', function(evt) {
+      infoWin.setContent(location.info);
+      infoWin.open(map, marker);
+    })
+    return marker;
+                }); 
+            console.log(locations);
+            console.log(markers);
+
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'images/m'});
+        
+            var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+            console.log(markerCluster.getCalculator());
+            // var marker=new google.maps.Marker({position:center,map:map});
+            // console.log(marker);
+        }
+
+        var locations = [
+        {lat: -5.659498, lng: 105.156952, info: 
+                '<center><h2>Kecamatan Marga Punduh<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas Wilayah: 15,17 Km2 <br>'+
+				'Hasil pertanian: kakao, cengkeh, Pala, dan Palawija<br>'+
+				'Luas Pertanian seluas ±97 Ha dan area Persawahan seluas ±37 Ha'},
+        {lat: -5.535958, lng: 105.227883, info: 
+                '<center><h2>Kecamatan Padang Cermin<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas Wilayah: ±139,9km2 <br>'+
+				'Hasil pertanian: Padi,Jagung, Uni jalar, Ubi kayu, Kacang Hijau, Kacang Tanah dan Kedelai<br>'+
+                'Luas Pertanian ±461 Hektar'},
+        {lat: -5.600866, lng: 105.073301, info:
+                '<center><h2>Kecamatan Way Ratai<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah: ±10.503,78Ha, suhu: 26-35oC<br>'+
+				'Hasil pertanian: Pisang, Durian, Duku, Jagung,,Tangkil, Cabe, Padi, Coklat <br>'+
+				'Luas pertanian:  Perkebunan ±4.088Ha, Sawah ±568Ha, Ladang ±568Ha, Perkarangan 523Ha, dll ±4.529,78Ha"<br>'},
+        {lat: -5.491850, lng: 104.965455, info: 
+                '<center><h2>Kecamatan Kedondong<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah 73,37km2, <br>'+
+				'Hasil pertanian: padi <br>'+
+				'luas wilayah pertanian: ±2.628 Ha<br>'},
+        {lat: -5.417839, lng: 105.015153, info: 
+                '<center><h2>Kecamatan  Way Lima<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah ±168,79km2 <br>'+
+				'Hasil pertanian: padi<br>'+
+				'luas wilayah pertanian: ±1.988Ha"<br></center>'},
+        {lat: -5.384999, lng: 105.083161, info: 
+                '<center><h2>Kecamatan Gedong Tataan<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah 165,2km2</br>'+
+				'Hasil pertanian padi, jagung dan ubi kayu<br>'+
+				'luas pertanian lahan sawah ±2.489 dan non sawah ±14.615"</br></center>'},
+        {lat: -5.159458, lng: 105.122460, info: 
+                '<center><h2>Kecamatan Tegineneng<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas wilayah: ±142,63km2<br>'+
+				'Hasil Pertanian: Ubi Kayu, Jagung, Padi<br>'+
+				'Luas Pertanian: 9.367Ha<br><br></center>'},
+        {lat: -5.284466, lng: 105.054165, info: 
+                '<center><h2>Kecamatan NegeriKaton<h2><hr>'+
+				'INFO:</center>'+
+				'<center>Luas Wilayah ±142,12Km2<br>'+
+				'Hasil pertanian:Padi, Ubi Kayu, Jagung, Kacang Tanah<br>'+
+				'Luas Pertanian: ±2.198Hektar<br></center>'},
+      ];
+    </script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqIy-vX5tDUpnN5EUuIVG5fNeEuHWm3q4&callback=initMap"></script>
+    <script src="src/markerclusterer.js">
+    </script>
+</html>
